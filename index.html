@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu Hub - FlexingDays</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 500px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .header p {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .profile-img {
+            width: 80px;
+            height: 80px;
+            background: white;
+            border-radius: 50%;
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        /* Menu Navigasi */
+        .nav-menu {
+            display: flex;
+            background: white;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .nav-item {
+            flex: 1;
+            text-align: center;
+            padding: 15px 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: #666;
+            font-weight: 500;
+            border-bottom: 3px solid transparent;
+        }
+
+        .nav-item.active {
+            color: #667eea;
+            border-bottom: 3px solid #667eea;
+            background: linear-gradient(to bottom, #f8f9ff, white);
+        }
+
+        .nav-item i {
+            display: block;
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+
+        /* Konten Area */
+        .content {
+            padding: 25px 20px;
+            min-height: 400px;
+            background: white;
+        }
+
+        /* Panel Info */
+        .info-panel {
+            animation: fadeIn 0.5s ease;
+        }
+
+        .info-card {
+            background: #f8f9ff;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .info-card h3 {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 20px;
+            border-left: 5px solid #667eea;
+            padding-left: 15px;
+        }
+
+        .info-card p {
+            color: #666;
+            line-height: 1.8;
+            margin-bottom: 15px;
+        }
+
+        .feature-list {
+            list-style: none;
+        }
+
+        .feature-list li {
+            padding: 12px 0;
+            border-bottom: 1px solid #e0e0e0;
+            color: #555;
+            display: flex;
+            align-items: center;
+        }
+
+        .feature-list li:last-child {
+            border-bottom: none;
+        }
+
+        .feature-list li::before {
+            content: "✓";
+            color: #667eea;
+            font-weight: bold;
+            margin-right: 10px;
+            background: #e6e9ff;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Panel Credit */
+        .credit-panel {
+            animation: fadeIn 0.5s ease;
+        }
+
+        .credit-card {
+            background: linear-gradient(135deg, #f8f9ff, white);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border: 1px solid #e0e0e0;
+        }
+
+        .credit-item {
+            display: flex;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .credit-item:last-child {
+            border-bottom: none;
+        }
+
+        .credit-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            margin-right: 15px;
+        }
+
+        .credit-detail {
+            flex: 1;
+        }
+
+        .credit-detail h4 {
+            color: #333;
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+
+        .credit-detail p {
+            color: #666;
+            font-size: 14px;
+        }
+
+        /* Panel Games */
+        .games-panel {
+            animation: fadeIn 0.5s ease;
+        }
+
+        .games-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .game-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px 10px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border: 1px solid #f0f0f0;
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+
+        .game-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+        }
+
+        .game-icon {
+            font-size: 48px;
+            margin-bottom: 10px;
+        }
+
+        .game-card h4 {
+            color: #333;
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+
+        .game-card p {
+            color: #666;
+            font-size: 12px;
+        }
+
+        .play-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 20px;
+            margin-top: 10px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: opacity 0.3s;
+        }
+
+        .play-btn:hover {
+            opacity: 0.9;
+        }
+
+        /* Utility */
+        .hidden {
+            display: none;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 20px;
+            background: #f8f9fa;
+            border-top: 1px solid #e0e0e0;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .footer a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="profile-img">
+                🎮
+            </div>
+            <h1>FlexingDays Hub</h1>
+            <p>Your Daily Entertainment Center</p>
+        </div>
+
+        <!-- Navigasi Menu -->
+        <div class="nav-menu">
+            <div class="nav-item active" onclick="showPanel('info')">
+                <span>📋</span>
+                <span>Info</span>
+            </div>
+            <div class="nav-item" onclick="showPanel('credit')">
+                <span>👥</span>
+                <span>Credit</span>
+            </div>
+            <div class="nav-item" onclick="showPanel('games')">
+                <span>🎮</span>
+                <span>Games</span>
+            </div>
+        </div>
+
+        <!-- Konten yang berubah-ubah -->
+        <div class="content">
+            <!-- Panel INFO -->
+            <div id="infoPanel" class="info-panel">
+                <div class="info-card">
+                    <h3>Tentang FlexingDays</h3>
+                    <p>Selamat datang di FlexingDays Hub! Platform hiburan interaktif yang menyediakan berbagai permainan seru dan konten menarik untuk mengisi waktu luang Anda.</p>
+                </div>
+
+                <div class="info-card">
+                    <h3>Fitur Unggulan</h3>
+                    <ul class="feature-list">
+                        <li>Kuis Interaktif dengan 20+ soal menarik</li>
+                        <li>Games ringan yang bisa dimainkan langsung</li>
+                        <li>Tampilan responsif untuk semua perangkat</li>
+                        <li>Update konten setiap minggu</li>
+                        <li>100% gratis untuk semua pengguna</li>
+                    </ul>
+                </div>
+
+                <div class="info-card">
+                    <h3>Cara Bermain</h3>
+                    <p>1. Pilih menu Games untuk melihat daftar permainan<br>
+                    2. Klik tombol "Main" pada game yang dipilih<br>
+                    3. Ikuti petunjuk permainan<br>
+                    4. Kirim skor kamu ke WhatsApp untuk berpartisipasi!</p>
+                </div>
+            </div>
+
+            <!-- Panel CREDIT -->
+            <div id="creditPanel" class="credit-panel hidden">
+                <div class="credit-card">
+                    <h3 style="margin-bottom: 20px; color: #333;">👥 Tim Pengembang</h3>
+                    
+                    <div class="credit-item">
+                        <div class="credit-icon">👨‍💻</div>
+                        <div class="credit-detail">
+                            <h4>savedatabase22-oss</h4>
+                            <p>Project Lead & Full Stack Developer</p>
+                        </div>
+                    </div>
+
+                    <div class="credit-item">
+                        <div class="credit-icon">🎨</div>
+                        <div class="credit-detail">
+                            <h4>FlexingDays Team</h4>
+                            <p>UI/UX Designer & Content Creator</p>
+                        </div>
+                    </div>
+
+                    <div class="credit-item">
+                        <div class="credit-icon">🤖</div>
+                        <div class="credit-detail">
+                            <h4>AI Assistant</h4>
+                            <p>Code Generator & Technical Support</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="credit-card">
+                    <h3 style="margin-bottom: 15px;">📋 Spesial Thanks</h3>
+                    <ul class="feature-list" style="margin-bottom: 0;">
+                        <li>GitHub Pages - Hosting Gratis</li>
+                        <li>Community FlexingDays</li>
+                        <li>Semua pengguna setia</li>
+                    </ul>
+                </div>
+
+                <div class="credit-card">
+                    <h3 style="margin-bottom: 15px;">📞 Kontak</h3>
+                    <p style="margin-bottom: 10px;">Email: flexingdays@example.com</p>
+                    <p>WhatsApp: +62 812-3456-7890</p>
+                </div>
+            </div>
+
+            <!-- Panel GAMES -->
+            <div id="gamesPanel" class="games-panel hidden">
+                <div class="games-grid">
+                    <div class="game-card" onclick="playGame('quiz')">
+                        <div class="game-icon">📝</div>
+                        <h4>Kuis Random</h4>
+                        <p>20 soal pengetahuan umum</p>
+                        <button class="play-btn" onclick="event.stopPropagation(); playGame('quiz')">Main</button>
+                    </div>
+
+                    <div class="game-card" onclick="playGame('tebak')">
+                        <div class="game-icon">🎯</div>
+                        <h4>Tebak Angka</h4>
+                        <p>Tebak angka 1-100</p>
+                        <button class="play-btn" onclick="event.stopPropagation(); playGame('tebak')">Main</button>
+                    </div>
+
+                    <div class="game-card" onclick="playGame('suwit')">
+                        <div class="game-icon">✂️</div>
+                        <h4>Suwit Jawa</h4>
+                        <p>Batu, Gunting, Kertas</p>
+                        <button class="play-btn" onclick="event.stopPropagation(); playGame('suwit')">Main</button>
+                    </div>
+
+                    <div class="game-card" onclick="playGame('puzzle')">
+                        <div class="game-icon">🧩</div>
+                        <h4>Memory Puzzle</h4>
+                        <p>Pasangkan gambar</p>
+                        <button class="play-btn" onclick="event.stopPropagation(); playGame('puzzle')">Main</button>
+                    </div>
+                </div>
+
+                <div style="margin-top: 25px; padding: 15px; background: #f0f3ff; border-radius: 10px; text-align: center;">
+                    <p style="color: #667eea; font-weight: 500;">Klik "Main" untuk memulai permainan!</p>
+                    <p style="font-size: 12px; color: #666;">Setelah selesai, hasil akan dikirim ke WhatsApp</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p>© 2026 FlexingDays. All rights reserved.<br>
+            <a href="#" onclick="showPanel('info'); return false;">Info</a> • 
+            <a href="#" onclick="showPanel('credit'); return false;">Credit</a> • 
+            <a href="#" onclick="showPanel('games'); return false;">Games</a></p>
+        </div>
+    </div>
+
+    <script>
+        // Fungsi untuk mengganti panel
+        function showPanel(panelName) {
+            // Sembunyikan semua panel
+            document.getElementById('infoPanel').classList.add('hidden');
+            document.getElementById('creditPanel').classList.add('hidden');
+            document.getElementById('gamesPanel').classList.add('hidden');
+            
+            // Tampilkan panel yang dipilih
+            document.getElementById(panelName + 'Panel').classList.remove('hidden');
+            
+            // Update active class di menu navigasi
+            const navItems = document.querySelectorAll('.nav-item');
+            navItems.forEach(item => {
+                item.classList.remove('active');
+            });
+            
+            // Set active berdasarkan panel yang dipilih
+            if (panelName === 'info') navItems[0].classList.add('active');
+            if (panelName === 'credit') navItems[1].classList.add('active');
+            if (panelName === 'games') navItems[2].classList.add('active');
+        }
+
+        // Fungsi untuk bermain game
+        function playGame(gameType) {
+            let message = '';
+            let whatsappNumber = '6281234567890'; // Ganti dengan nomor WA Anda
+            
+            switch(gameType) {
+                case 'quiz':
+                    message = 'Halo! Saya ingin memulai Kuis Random 20 Soal';
+                    window.location.href = 'https://wa.me/' + whatsappNumber + '?text=' + encodeURIComponent(message);
+                    break;
+                case 'tebak':
+                    message = 'Halo! Saya ingin main Tebak Angka';
+                    window.location.href = 'https://wa.me/' + whatsappNumber + '?text=' + encodeURIComponent(message);
+                    break;
+                case 'suwit':
+                    message = 'Halo! Saya ingin main Suwit Jawa';
+                    window.location.href = 'https://wa.me/' + whatsappNumber + '?text=' + encodeURIComponent(message);
+                    break;
+                case 'puzzle':
+                    message = 'Halo! Saya ingin main Memory Puzzle';
+                    window.location.href = 'https://wa.me/' + whatsappNumber + '?text=' + encodeURIComponent(message);
+                    break;
+                default:
+                    alert('Game sedang dalam pengembangan!');
+            }
+        }
+
+        // Set default panel ke Info saat halaman dimuat
+        document.addEventListener('DOMContentLoaded', function() {
+            showPanel('info');
+        });
+    </script>
+</body>
+</html>
